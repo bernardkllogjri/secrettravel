@@ -1,15 +1,11 @@
-import React,{Component} from 'react';
-import Nav from '../navigation/Nav';
+import React from 'react';       
+import BaseComponent from './BaseComponent';
 
-export default class Results extends Component{
-
+export default class Results extends BaseComponent{
     render(){
         return (
             <div>
-                <Nav links={[
-                    {link:'/',name:"Home",active:true},
-                    {link:'/user',name:"User",active:false},
-                ]} ></Nav>
+                {this.renderLinks()}
                 Results
             </div>
         )

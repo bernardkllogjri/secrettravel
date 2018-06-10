@@ -10,7 +10,7 @@ const Home = Loadable({
 })
 
 const Results = Loadable({
-    loader: () => import('../components/Results.js'),
+    loader: () => import('../components/Results'),
     loading: Loading
 })
 

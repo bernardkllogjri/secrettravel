@@ -8,7 +8,7 @@ export default class Home extends BaseComponent{
         return (
             <div>
                 {this.renderLinks()}
-                Not Found
+                User
                 <GridView/>
             </div>
         )
