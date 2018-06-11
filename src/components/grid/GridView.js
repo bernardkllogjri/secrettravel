@@ -10,7 +10,7 @@ export default class GridView extends Component {
         this.state = {
             items: [],
         }
-        window.sr =ScrollReveal({ reset: true });
+        window.sr =ScrollReveal();
     }
 
     componentDidMount() {
