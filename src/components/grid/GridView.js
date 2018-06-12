@@ -1,42 +1,75 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import GridItem from './GridItem';
+import ScrollReveal from 'scrollreveal/dist/scrollreveal.min.js';
 
-export default class GridView extends Component{
+export default class GridView extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
-            items:[]
+        window.sr = ScrollReveal();
+    }
+
+    animate() {
+        let elements = ['.card', '.jumbotron'];
+        elements.forEach(el => {
+            window.sr.reveal(el, {
+                duration: 600,
+                origin: 'bottom',
+                scale: 1,
+            })
+        })
+    }
+
+    componentDidMount() {
+        this.animate();
+    }
+
+    componentDidUpdate() {
+        this.animate();
+    }
+
+    renderChannelResults() {
+        let result = [];
+        let i = 0;
+
+        for (let arr in this.props.items) {
+            result.push(
+                <div key={i} className="row pos-relative mt-5">
+                    <div className="channel-title absolute container">{arr}</div>
+                    {this.props.items[arr].map((i,j) => {
+                        return (
+                            <GridItem
+                                channelGrid={this.props.channel || false}
+                                key={j}
+                                desc={i.desc}
+                                image={i.image}
+                                title={i.title}
+                                id={i.id}
+                            />)
+                    })
+                    }
+                </div>
+            );
+            i++;
         }
+        return result;
     }
 
-    componentWillMount(){
-        let items = [
-            {id:1,title:"Nice",desc:"Very Nice",image:"/images/image.png"},
-            {id:2,title:"Nice",desc:"Very Nice",image:"/images/image.png"},
-            {id:3,title:"Nice",desc:"Very Nice",image:"/images/image.png"},
-            {id:4,title:"Nice",desc:"Very Nice",image:"/images/image.png"},
-        ];
-        this.setState({
-            items
-        });
+    renderDealsResults() {
+        return this.props.items.map(i => {
+            return (<GridItem
+                channelGrid={this.props.channel || false}
+                key={i.id}
+                desc={i.desc}
+                image={i.image}
+                title={i.title}
+                id={i.id}
+            />)
+        })
     }
 
-    render(){
-
-        return (
-            <div className="row container">
-                {
-                    this.state.items.map(i => {
-                        return <GridItem
-                            key={i.id}                                     
-                            desc={i.desc}
-                            image={i.image}
-                        />
-                    })                    
-                }
-            </div>
-        )
+    render() {
+        return this.props.channel || false ? this.renderChannelResults() : this.renderDealsResults()
     }
 
 }

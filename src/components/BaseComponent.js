@@ -6,21 +6,21 @@ export default class Results extends Component{
     constructor(props){
         super(props);
         this.state = {
-            links:[]
+            path:false,
+            navbarLinks: links.navbarLinks
         }
     }
 
-    componentWillMount(){
-        let mutatedLinks = links.links.map(element => {
-            if(element.name==="Home"){
-                element.active = true;
-            }
-            return element;
+    changePath(){
+        this.setState({
+            path:this.props.match.params[0]
         });
-        this.setState({links:mutatedLinks});
     }
 
-    renderLinks(){
-        return <Nav links={this.state.links} ></Nav>
+    renderLinks(links){
+        return <Nav onClick={() => this.changePath()} links={links}></Nav>
+    }
+    renderNavBar(){
+        return <Nav navbarLink links={this.state.navbarLinks} ></Nav>
     }
 }
