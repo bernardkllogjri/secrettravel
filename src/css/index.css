@@ -38,8 +38,13 @@
 }
 
 .text-center .card-title{
-    margin-top:20%;
     text-transform: uppercase
+}
+
+.card-img-overlay{
+    display: flex;
+    justify-content: center;
+    align-items: center
 }
 
 .bord-left{
@@ -162,7 +167,57 @@
     font-size:10px;
 }
 
+.font-8{
+    font-size:8px;
+}
 .jumbotron.jumbotron-fluid{
     min-height: 500px;
     background-size: 100% !important;
+}
+
+.form-control.borderless{
+    border: 0;
+    border-top: 1px solid #ced4da;
+    border-radius: 0;
+}
+input[type="text"]{
+    box-shadow: none !important;
+}
+
+.description{
+    border-left: 3px solid #4f98ff;
+    padding-left: 10px;
+    color: #4f98ff;
+}
+
+.deal-btn{
+    margin-top:20px;
+    border-radius: 0;
+    padding:20px;
+    font-weight: 600;
+    text-transform: uppercase
+}
+
+.btn-outline-secondary.deal-btn{
+    border-color: #e4e4e4;
+}
+
+.btn:focus{
+    box-shadow: none !important;
+}
+
+.calendar{
+    height:300px;
+    background-color:#e9ecef;
+}
+
+.calendar.visible{
+    position: relative;
+    height:300px;
+    transition: height 600ms;
+}
+
+.calendar.hidden{
+    height:0;
+    transition: height 600ms;
 }

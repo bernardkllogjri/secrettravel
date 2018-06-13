@@ -5,7 +5,7 @@ export default class GridItem extends Component {
 
     renderDealsCard() {
         return (
-            <div className="card col-md-4 border-0 mt-3">
+            <div className={`card col-md-${this.props.colsNum || 4} border-0 mt-3`}>
                 <img className="card-img-top" src={this.props.image} alt="card" />
                 <div className="card-body p-0 mb-2 border-bottom border-left border-right">
                     <p className="card-text p-1 m-0">
@@ -27,21 +27,30 @@ export default class GridItem extends Component {
         )
     }
 
+    linkWrapper(html) {
+        return (<NavLink to={`/deals/${this.props.id}`}>
+            {html}
+        </NavLink>)
+    }
+
     renderChannelCard() {
-        return (
-            <div className="card col-md-4 border-0 mt-3 text-white text-center">
-                <NavLink to={`/deals/${this.props.id}`}>
-                    <img className="card-img" src="/images/image.jpg" width="50" width="50" alt="card" />
-                    <div className="card-img-overlay">
-                        <h5 className="card-title text-white">{this.props.title}</h5>
-                    </div>
-                </NavLink>
+        const html = (
+            <div>
+                <img className="card-img" src={this.props.image} width="50" alt="card" />
+                <div className="card-img-overlay">
+                    <h5 className="card-title text-white">{this.props.title}</h5>
+                </div>
             </div>
         )
-    }
-
+        return (
+            <div className={`card col-md-${this.props.colsNum || 4} border-0 mt-3 text-white text-center`}>
+                {this.props.id ? this.linkWrapper(html): html}
+            </div>
+            )
+        }
+    
     render() {
         return this.props.channelGrid ? this.renderChannelCard() : this.renderDealsCard();
-    }
-
+            }
+        
 }

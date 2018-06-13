@@ -28,7 +28,7 @@ export default class GridView extends Component {
         this.animate();
     }
 
-    renderChannelResults() {
+    renderChannelCards() {
         let result = [];
         let i = 0;
 
@@ -36,18 +36,7 @@ export default class GridView extends Component {
             result.push(
                 <div key={i} className="row pos-relative mt-5">
                     <div className="channel-title absolute container">{arr}</div>
-                    {this.props.items[arr].map((i,j) => {
-                        return (
-                            <GridItem
-                                channelGrid={this.props.channel || false}
-                                key={j}
-                                desc={i.desc}
-                                image={i.image}
-                                title={i.title}
-                                id={i.id}
-                            />)
-                    })
-                    }
+                    {this.renderCards(this.props.items[arr])}
                 </div>
             );
             i++;
@@ -55,21 +44,22 @@ export default class GridView extends Component {
         return result;
     }
 
-    renderDealsResults() {
-        return this.props.items.map(i => {
+    renderCards(items){
+        return items.map((i,j) => {
             return (<GridItem
-                channelGrid={this.props.channel || false}
-                key={i.id}
+                channelGrid={this.props.channel || this.props.homepage}
+                key={j}
                 desc={i.desc}
                 image={i.image}
                 title={i.title}
                 id={i.id}
+                colsNum={12 / this.props.cols}
             />)
         })
     }
 
     render() {
-        return this.props.channel || false ? this.renderChannelResults() : this.renderDealsResults()
+        return this.props.channel ? this.renderChannelCards() : this.renderCards(this.props.items)
     }
 
 }

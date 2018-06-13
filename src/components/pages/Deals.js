@@ -7,7 +7,7 @@ export default class Deals extends BaseComponent {
 
     constructor(props) {
         super(props);
-        this.state.id = this.props.match.params.id;
+        this.state.id = this.props.match ? this.props.match.params.id : null;
     }
 
     redirectToDefaultTab() {
@@ -33,16 +33,16 @@ export default class Deals extends BaseComponent {
 
     renderMobileTabs() {
         return (<div className="col-md-6">
-            <div className="row border-bottom">
+            <div className="row mx-auto border-bottom">
                 <span className="title capitalize">Mobile push notifications</span>
             </div>
 
-            <div className="container">
+            <div className="container p-0">
                 <div className="row mt-2">
                     <div className="col-sm-6">
                         <div className="row">
-                            <div className="col-sm-6 p-2 font-weight-bold">As An Origin</div>
-                            <div className="col-sm-6">
+                            <div className="col-sm-7 pl-3 font-weight-bold">As An Origin</div>
+                            <div className="col-sm-5 pr-0">
                                 <ul className="nav nav-tabs border-0">
                                     <li className="nav-item"><a href="/" className="nav-link active">Off</a></li>
                                     <li className="nav-item"><a href="/" className="nav-link">On</a></li>
@@ -52,8 +52,8 @@ export default class Deals extends BaseComponent {
                     </div>
                     <div className="col-sm-6">
                         <div className="row">
-                            <div className="col-sm-6 p-2 font-weight-bold">As A Destination</div>
-                            <div className="col-sm-6">
+                            <div className="col-sm-7 pl-3 font-weight-bold">As A Destination</div>
+                            <div className="col-sm-5 pr-0">
                                 <ul className="nav nav-tabs border-0">
                                     <li className="nav-item"><a href="/" className="nav-link active">Off</a></li>
                                     <li className="nav-item"><a href="/" className="nav-link">On</a></li>
@@ -66,33 +66,34 @@ export default class Deals extends BaseComponent {
         </div>)
     }
 
-    render() {
-        return (
-            <div>
+    renderBase(html) {
+        return this.masterLayout(
+            <div className="container">
                 {this.redirectToDefaultTab()}
-                {this.renderNavBar()}
-                <div className="container">
-                    <div className="jumbotron jumbotron-fluid" style={{background:"url('http://localhost:3000/images/image.jpg')"}}></div>
-                    <div className="row">
-                        <div className="col-md-6">
-                            <span className="title">United Kingdom</span>
-                            {this.renderLinks([
-                                { link: `/deals/${this.state.id}/recent`, name: "Recent", active: false, exact: false },
-                                { link: `/deals/${this.state.id}/trending`, name: "Trending", active: false, exact: false },
-                            ])}
-                        </div>
-                        {this.renderMobileTabs()}
+                <div className="jumbotron jumbotron-fluid" style={{ background: "url('http://localhost:3000/images/image.jpg')" }}></div>
+                <div className="row">
+                    <div className="col-md-6">
+                        <span className="title">United Kingdom</span>
+                        {this.renderLinks([
+                            { link: `/deals/${this.state.id}/recent`, name: "Recent", active: false, exact: false },
+                            { link: `/deals/${this.state.id}/trending`, name: "Trending", active: false, exact: false },
+                        ])}
                     </div>
+                    {this.renderMobileTabs()}
                 </div>
-                <div className="container">
-                    <div className="row">
-                        <GridView
-                            items={this.getItems()}
-                        />
-                    </div>
+                <div className="row">
+                    {html}
                 </div>
             </div>
         )
+    }
+
+    renderBare(html) {
+        return html;
+    }
+
+    render() {
+        return this.props.homepage ? this.renderBare(<GridView cols={2} items={this.getItems()} />) : this.renderBase(<GridView cols={3} items={this.getItems()} />);
     }
 
 }

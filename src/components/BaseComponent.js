@@ -1,26 +1,34 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import Nav from '../navigation/Nav';
-import links from '../config/links.js';        
+import links from '../config/links.js';
 
-export default class Results extends Component{
-    constructor(props){
+export default class BaseComponent extends Component {
+    constructor(props) {
         super(props);
         this.state = {
-            path:false,
+            path: false,
             navbarLinks: links.navbarLinks
         }
     }
 
-    changePath(){
+    changePath() {
         this.setState({
-            path:this.props.match.params[0]
+            path: this.props.match.params[0]
         });
     }
 
-    renderLinks(links){
+    renderLinks(links) {
         return <Nav onClick={() => this.changePath()} links={links}></Nav>
     }
-    renderNavBar(){
+    renderNavBar() {
         return <Nav navbarLink links={this.state.navbarLinks} ></Nav>
+    }
+    masterLayout(html) {
+        return (
+            <div>
+                {this.renderNavBar()}
+                {html}
+            </div>
+        )
     }
 }
